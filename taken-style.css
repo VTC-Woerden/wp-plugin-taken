@@ -1,0 +1,258 @@
+/*
+ * The [vtc_taken] shortcode: a table with Datum | Tijd | Taak.
+ * On small screens every row becomes a small card (see the bottom of this file).
+ */
+
+.vtc-taken {
+	margin-bottom: 30px;
+}
+
+.vtc-taken__team {
+	margin-bottom: 15px;
+}
+
+.vtc-taken__table {
+	width: 100%;
+	border-collapse: collapse;
+	border: none;
+	margin: 0;
+	font-size: 16px;
+	background: white;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* The blue header row */
+.vtc-taken__table thead th {
+	background: #00378a;
+	color: white;
+	text-align: left;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 14px 18px;
+	border: none;
+}
+
+.vtc-taken__table td {
+	padding: 14px 18px;
+	border: none;
+	border-bottom: 1px solid #e6e6e6;
+	vertical-align: top;
+	color: #333;
+}
+
+.vtc-taken__table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+/* Light stripes, so long lists are easy to follow */
+.vtc-taken__table tbody tr:nth-child(even) td {
+	background: #f7f8fa;
+}
+
+.vtc-taken__col-date {
+	width: 32%;
+	white-space: nowrap;
+}
+
+.vtc-taken__col-time {
+	width: 18%;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+
+/* The type as a small coloured label in front of the task */
+.vtc-taken__type {
+	display: inline-block;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 2px 8px;
+	margin-right: 8px;
+	border-radius: 10px;
+	vertical-align: 2px;
+	background: #e6ecf5;
+	color: #00378a;
+}
+
+.vtc-taken__row--tellen .vtc-taken__type {
+	background: #e3f4e8;
+	color: #1a7f37;
+}
+
+.vtc-taken__row--fluiten .vtc-taken__type {
+	background: #fdeee4;
+	color: #c2410c;
+}
+
+.vtc-taken__row--bardienst .vtc-taken__type {
+	background: #f3e8fd;
+	color: #7e22ce;
+}
+
+.vtc-taken__title {
+	font-weight: bold;
+}
+
+.vtc-taken__description {
+	margin-top: 4px;
+	font-size: 14px;
+	color: #6b6b6b;
+}
+
+/* Tasks from the past (only with toon_verleden="ja") */
+.vtc-taken__row--past td {
+	color: #9a9a9a;
+}
+
+.vtc-taken__row--past .vtc-taken__type {
+	opacity: 0.6;
+}
+
+.vtc-taken__empty {
+	font-style: italic;
+}
+
+/* The "Printen" button above the tasks */
+.vtc-taken__print-button {
+	display: inline-block;
+	margin: 0 0 12px 0;
+	padding: 8px 16px;
+	border: 1px solid #00378a;
+	border-radius: 6px;
+	background: white;
+	color: #00378a;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.vtc-taken__print-button:hover {
+	background: #00378a;
+	color: white;
+}
+
+/* The title is only for on paper */
+.vtc-taken__print-title {
+	display: none;
+}
+
+/*
+ * Printing: only the tasks, nothing else of the page (menu, header, footer).
+ * Everything is made invisible, and then only our block visible again.
+ */
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	.vtc-taken-printable,
+	.vtc-taken-printable * {
+		visibility: visible;
+	}
+
+	/*
+	 * Put our block at the top left of the paper, full width.
+	 * The theme's elements around it must not be "positioned", otherwise our block is placed
+	 * inside them (too narrow and too low). :has() finds exactly those parent elements.
+	 */
+	body *:has(.vtc-taken-printable) {
+		position: static !important;
+		transform: none !important;
+		overflow: visible !important;
+	}
+
+	.vtc-taken-printable {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		max-width: none !important; /* themes often limit the content width */
+		margin: 0 !important;
+		padding: 0;
+	}
+
+	.vtc-taken__print-button {
+		display: none;
+	}
+
+	.vtc-taken__print-title {
+		display: block;
+		margin: 0 0 15px 0;
+		color: #00378a;
+	}
+
+	/* Keep the colours (blue header, coloured labels), browsers leave them out by default */
+	.vtc-taken-printable {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	.vtc-taken__table {
+		box-shadow: none;
+		border: 1px solid #ccc;
+	}
+
+	/* Don't cut a task in half at the end of a page */
+	.vtc-taken__table tr {
+		break-inside: avoid;
+	}
+
+	/* Repeat the column names on every page */
+	.vtc-taken__table thead {
+		display: table-header-group;
+	}
+}
+
+/* Small screens: every row becomes a card with the date and time on top */
+@media only screen and (max-width: 600px) {
+	.vtc-taken__table,
+	.vtc-taken__table tbody,
+	.vtc-taken__table tr,
+	.vtc-taken__table td {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.vtc-taken__table thead {
+		display: none;
+	}
+
+	.vtc-taken__table tr {
+		padding: 12px 14px;
+		border-bottom: 1px solid #e6e6e6;
+	}
+
+	.vtc-taken__table tbody tr:nth-child(even) {
+		background: #f7f8fa;
+	}
+
+	.vtc-taken__table td,
+	.vtc-taken__table tbody tr:nth-child(even) td {
+		padding: 0;
+		border: none;
+		background: transparent;
+	}
+
+	.vtc-taken__col-date,
+	.vtc-taken__col-time {
+		display: inline !important;
+		width: auto !important;
+		font-size: 14px;
+		font-weight: bold;
+		color: #00378a !important;
+	}
+
+	.vtc-taken__col-time:not(:empty)::before {
+		content: " · ";
+	}
+
+	.vtc-taken__col-task {
+		margin-top: 6px;
+	}
+}

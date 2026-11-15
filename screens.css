@@ -1,0 +1,195 @@
+/*
+ * The Wedstrijddag and Weekschema screens (see screens.php).
+ * Sizes use "cqw" (percentage of the width of the day block), so everything
+ * grows and shrinks with the screen, just like in the old wedstrijd planner.
+ */
+
+* {
+	box-sizing: border-box;
+}
+
+body.vtc-scherm {
+	margin: 0;
+	padding: 10px;
+	background: #eef1f6;
+	color: #333;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Weekschema header: logo and week number */
+.vtc-scherm__header {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin-bottom: 15px;
+}
+
+.vtc-scherm__logo {
+	width: 100px;
+}
+
+.vtc-scherm__week {
+	font-size: 28px;
+	font-weight: bold;
+	color: #00378a;
+}
+
+.vtc-scherm__leeg {
+	font-size: 24px;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.vtc-weekschema {
+	display: grid;
+	grid-gap: 30px;
+}
+
+/* On smaller screens always one day per row */
+@media (max-width: 1450px) {
+	.vtc-weekschema {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+/* One day */
+.vtc-dag {
+	container-type: inline-size;
+	background: white;
+	border-radius: 10px;
+	padding: 1cqw;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.vtc-dag__titel {
+	margin: 0 0 1cqw 0;
+	font-size: 2.4cqw;
+	text-align: center;
+	color: #00378a;
+}
+
+.vtc-dag__geen {
+	margin: 1cqw 0;
+	text-align: center;
+	font-size: 1.6cqw;
+	color: #6b6b6b;
+}
+
+/* On a day without matches the bar strip is the main thing, so make it a bit bigger */
+.vtc-bar + .vtc-dag__geen {
+	font-size: 1.3cqw;
+}
+
+/* The bar shifts of the day */
+.vtc-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6cqw 1.5cqw;
+	margin-bottom: 1cqw;
+	padding: 0.7cqw 1cqw;
+	border-radius: 0.6cqw;
+	background: #f3e8fd;
+	color: #4a1580;
+	font-size: 1.4cqw;
+}
+
+.vtc-bar__label {
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #7e22ce;
+}
+
+.vtc-bar__tijd {
+	font-variant-numeric: tabular-nums;
+}
+
+.vtc-bar__naam {
+	opacity: 0.75;
+}
+
+/*
+ * The hall, drawn as a grid:
+ *   kantine | veld 4 | veld 3
+ *   kantine | veld 1 | veld 2
+ *           | tribune        |
+ */
+.vtc-hal {
+	display: grid;
+	grid-template-columns: 4cqw 1fr 1fr;
+	grid-template-rows: auto auto 4cqw;
+	grid-gap: 1cqw;
+}
+
+.vtc-hal__kantine,
+.vtc-hal__tribune {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #dfe5ee;
+	color: #00378a;
+	font-weight: bold;
+	font-size: 1.5cqw;
+	border-radius: 0.6cqw;
+}
+
+.vtc-hal__kantine {
+	grid-area: 1 / 1 / 3 / 2;
+	writing-mode: vertical-rl;
+}
+
+.vtc-hal__tribune {
+	grid-area: 3 / 2 / 4 / 4;
+}
+
+.vtc-hal__veld {
+	min-height: 20cqw;
+	padding: 0.5cqw 1cqw 1cqw 1cqw;
+	border: 0.3cqw solid #00378a;
+	border-radius: 0.6cqw;
+	font-size: 1.4cqw;
+}
+
+.vtc-hal__veld--4 { grid-area: 1 / 2 / 2 / 3; }
+.vtc-hal__veld--3 { grid-area: 1 / 3 / 2 / 4; }
+.vtc-hal__veld--1 { grid-area: 2 / 2 / 3 / 3; }
+.vtc-hal__veld--2 { grid-area: 2 / 3 / 3 / 4; }
+
+.vtc-hal__veldnaam {
+	margin: 0.6cqw 0 0.4cqw 0;
+	font-size: 1.7cqw;
+	color: #00378a;
+}
+
+/* One match in a field */
+.vtc-wedstrijd {
+	margin-top: 0.7cqw;
+	padding-top: 0.7cqw;
+	border-top: 1px solid #e3e7ee;
+}
+
+.vtc-hal__veldnaam + .vtc-wedstrijd {
+	border-top: none;
+	padding-top: 0;
+}
+
+.vtc-wedstrijd__teams {
+	color: #0c3cbe;
+}
+
+.vtc-wedstrijd__tijd {
+	display: inline-block;
+	min-width: 4.5cqw;
+	font-weight: bold;
+	color: #00378a;
+	font-variant-numeric: tabular-nums;
+}
+
+.vtc-wedstrijd__taken {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1.5cqw;
+	margin-left: 4.5cqw;
+	color: #2b2b2b;
+}

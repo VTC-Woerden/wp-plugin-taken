@@ -1,0 +1,338 @@
+/* Styling for the admin pages of VTC Taken */
+
+.vtc-taken-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 15px 0;
+}
+
+.vtc-taken-changed-dot {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #d63638;
+	vertical-align: middle;
+}
+
+/* Matches on the left, task counts on the right */
+.vtc-taken-columns {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+.vtc-taken-main {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.vtc-taken-sidebar {
+	flex: 0 0 260px;
+	position: sticky;
+	top: 50px;
+	margin-top: 20px;
+}
+
+.vtc-taken-sidebar-box {
+	background: white;
+	border: 1px solid #c3c4c7;
+	padding: 12px;
+}
+
+.vtc-taken-sidebar-box .button-primary {
+	width: 100%;
+	text-align: center;
+}
+
+/* Every day is a card with a blue header (same blue as the website) */
+.vtc-taken-day {
+	margin: 20px 0 35px 0;
+	background: white;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.vtc-taken-day-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #00378a;
+	color: white;
+	padding: 10px 15px;
+}
+
+.vtc-taken-day-header h2 {
+	margin: 0;
+	color: white;
+	font-size: 17px;
+}
+
+.vtc-taken-day-header span {
+	opacity: 0.85;
+}
+
+.vtc-taken-day-header a {
+	color: white;
+}
+
+.vtc-taken-day-body {
+	padding: 0 15px 15px 15px;
+	background: #f6f7f7;
+}
+
+/* The tasks per team at the bottom of every day */
+.vtc-taken-day-counts {
+	margin-top: 15px;
+	padding-top: 12px;
+	border-top: 1px solid #dcdcde;
+	line-height: 2.2;
+}
+
+.vtc-taken-day-counts strong {
+	margin-right: 6px;
+}
+
+.vtc-taken-day-count {
+	display: inline-block;
+	background: white;
+	border: 1px solid #c3c4c7;
+	border-radius: 12px;
+	padding: 0 10px;
+	margin-right: 6px;
+	line-height: 22px;
+}
+
+/* Conflict checker: a team that can't do this task */
+.vtc-taken-matches-table select.vtc-taken-conflict {
+	border-color: #d63638;
+	background-color: #fcf0f1;
+	color: #8a2424;
+	box-shadow: 0 0 0 1px #d63638;
+}
+
+.vtc-taken-conflict-message {
+	margin-top: 4px;
+	font-size: 12px;
+	line-height: 1.4;
+	color: #d63638;
+}
+
+.vtc-taken-conflict-summary {
+	margin: 10px 0 0 0;
+	padding: 6px 8px;
+	border-radius: 4px;
+	background: #edfaef;
+	color: #00611d;
+}
+
+.vtc-taken-conflict-summary--problems {
+	background: #fcf0f1;
+	color: #8a2424;
+	font-weight: 600;
+}
+
+/* Warning: the team doesn't play on this day */
+.vtc-taken-matches-table select.vtc-taken-warning {
+	border-color: #dba617;
+	background-color: #fcf9e8;
+	color: #6e4b00;
+	box-shadow: 0 0 0 1px #dba617;
+}
+
+.vtc-taken-conflict-message.vtc-taken-warning-message {
+	color: #996800;
+}
+
+.vtc-taken-conflict-summary--warnings {
+	background: #fcf9e8;
+	color: #6e4b00;
+	font-weight: 600;
+}
+
+/* A team with more than one task on this day */
+.vtc-taken-day-count--multiple {
+	background: #fcf0e3;
+	border-color: #e5a35a;
+	color: #8a4b00;
+	font-weight: 600;
+}
+
+/* Our teams that play away on this day, at the bottom of every day */
+.vtc-taken-away {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #dcdcde;
+}
+
+.vtc-taken-away ul {
+	margin: 6px 0 0 0;
+	columns: 4;
+	column-gap: 30px;
+}
+
+.vtc-taken-away li {
+	margin: 0 0 4px 0;
+	break-inside: avoid;
+}
+
+.vtc-taken-away__time {
+	display: inline-block;
+	min-width: 42px;
+	font-variant-numeric: tabular-nums;
+	color: #00378a;
+	font-weight: 600;
+}
+
+@media only screen and (max-width: 1200px) {
+	.vtc-taken-away ul {
+		columns: 2;
+	}
+}
+
+/* "Veld 1" above every table */
+.vtc-taken-field {
+	margin: 15px 0 5px 0;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #00378a;
+}
+
+/* Fixed layout, so the columns of all tables of a day line up */
+.vtc-taken-matches-table {
+	table-layout: fixed;
+}
+
+.vtc-taken-matches-table .col-changed {
+	width: 12px;
+}
+
+.vtc-taken-matches-table .col-time {
+	width: 45px;
+}
+
+.vtc-taken-matches-table .col-team {
+	width: 25%;
+}
+
+.vtc-taken-matches-table select {
+	width: 100%;
+}
+
+.vtc-taken-cancelled td {
+	color: #8c8f94;
+	text-decoration: line-through;
+}
+
+.vtc-taken-cancelled td strong {
+	text-decoration: none;
+}
+
+/*
+ * The calendar popup of the date field (jQuery UI Datepicker).
+ * WordPress includes the script but no styling, so here is a simple style in WordPress colours.
+ */
+.ui-datepicker {
+	display: none;
+	background: white;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+	padding: 8px;
+	width: 250px;
+	z-index: 100000 !important;
+}
+
+.ui-datepicker-header {
+	position: relative;
+	text-align: center;
+	padding: 4px 0 8px 0;
+}
+
+.ui-datepicker-title {
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+	position: absolute;
+	top: 2px;
+	cursor: pointer;
+	color: #2271b1;
+	font-size: 12px;
+}
+
+.ui-datepicker-prev {
+	left: 4px;
+}
+
+.ui-datepicker-next {
+	right: 4px;
+}
+
+.ui-datepicker-calendar {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.ui-datepicker-calendar th {
+	font-weight: 600;
+	font-size: 12px;
+	color: #646970;
+	padding: 4px 0;
+}
+
+.ui-datepicker-calendar td {
+	text-align: center;
+	padding: 1px;
+}
+
+.ui-datepicker-calendar td a {
+	display: block;
+	padding: 5px 0;
+	border-radius: 3px;
+	text-decoration: none;
+	color: #1d2327;
+}
+
+.ui-datepicker-calendar td a:hover {
+	background: #f0f0f1;
+}
+
+.ui-datepicker-calendar .ui-datepicker-other-month a {
+	color: #a7aaad;
+}
+
+.ui-datepicker-calendar .ui-datepicker-today a {
+	font-weight: 700;
+	color: #00378a;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+	background: #00378a;
+	color: white;
+}
+
+.vtc-taken-settings textarea {
+	width: 100%;
+	max-width: 500px;
+}
+
+/* On small screens, show the counts below the matches */
+@media only screen and (max-width: 960px) {
+	.vtc-taken-columns {
+		flex-direction: column;
+	}
+
+	.vtc-taken-sidebar {
+		position: static;
+		flex-basis: auto;
+		width: 100%;
+	}
+}
