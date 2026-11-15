@@ -40,16 +40,14 @@ body.vtc-scherm {
 	margin-top: 50px;
 }
 
+/*
+ * The number of columns comes from ?columns= in the URL (set as an inline style in screens.php),
+ * so it works on every screen size, just like the old wedstrijd planner.
+ */
 .vtc-weekschema {
 	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 30px;
-}
-
-/* On smaller screens always one day per row */
-@media (max-width: 1450px) {
-	.vtc-weekschema {
-		grid-template-columns: 1fr !important;
-	}
 }
 
 /* One day */

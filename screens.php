@@ -179,7 +179,7 @@ function vtc_taken_screen_start($title) {
 	<meta name="robots" content="noindex">
 	<meta http-equiv="refresh" content="<?php echo intval(VTC_TAKEN_SCREEN_REFRESH_SECONDS); ?>">
 	<title><?php echo esc_html($title); ?></title>
-	<link rel="stylesheet" href="<?php echo esc_url(plugin_dir_url(__FILE__) . 'screens.css?ver=1.1.0'); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url(plugin_dir_url(__FILE__) . 'screens.css?ver=1.2.0'); ?>">
 </head>
 <body class="vtc-scherm">
 	<?php
