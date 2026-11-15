@@ -49,7 +49,7 @@ add_action('plugins_loaded', 'vtc_taken_check_version');
 
 function vtc_taken_styles() {
 	// Raise the version number when you change the CSS, so browsers load the new file
-	wp_enqueue_style('vtc_taken', plugin_dir_url(__FILE__) . 'taken-style.css', array(), '2.1.0');
+	wp_enqueue_style('vtc_taken', plugin_dir_url(__FILE__) . 'taken-style.css', array(), '2.2.0');
 }
 
 add_action('wp_enqueue_scripts', 'vtc_taken_styles');

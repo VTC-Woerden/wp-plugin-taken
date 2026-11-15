@@ -146,30 +146,39 @@
  * Everything is made invisible, and then only our block visible again.
  */
 @media print {
-	body * {
-		visibility: hidden;
-	}
-
-	.vtc-taken-printable,
-	.vtc-taken-printable * {
-		visibility: visible;
-	}
-
 	/*
-	 * Put our block at the top left of the paper, full width.
-	 * The theme's elements around it must not be "positioned", otherwise our block is placed
-	 * inside them (too narrow and too low). :has() finds exactly those parent elements.
+	 * Used when someone prints with Ctrl+P (the Printen button prints from a page of its own, see taken-print.js).
+	 *
+	 * Hide (display: none) everything that is not our block, not inside it, and not around it.
+	 * "Hidden" really takes no space, so the theme's header, footer and other content can't add empty pages.
 	 */
+	body *:not(.vtc-taken-printable):not(.vtc-taken-printable *):not(:has(.vtc-taken-printable)) {
+		display: none !important;
+	}
+
+	/* The theme's elements around our block: no spacing, no fixed sizes, no positioning */
 	body *:has(.vtc-taken-printable) {
 		position: static !important;
+		float: none !important;
 		transform: none !important;
 		overflow: visible !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+		width: auto !important;
+		max-width: none !important;
+		height: auto !important;
+		min-height: 0 !important;
+		box-shadow: none !important;
+		background: none !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
 	}
 
 	.vtc-taken-printable {
-		position: absolute;
-		top: 0;
-		left: 0;
 		width: 100% !important;
 		max-width: none !important; /* themes often limit the content width */
 		margin: 0 !important;

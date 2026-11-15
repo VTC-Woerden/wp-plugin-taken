@@ -86,20 +86,19 @@ function vtc_taken_shortcode($atts = [], $content = null) {
  * - a title that is only shown on paper (on screen the page already has its own title)
  */
 function vtc_taken_wrap_printable($content, $print_title, $show_button) {
+	// taken-print.js handles the button and ?print in the URL. It prints only this block,
+	// from a small page of its own, so the theme can't add empty pages.
+	wp_enqueue_script('vtc_taken_print', plugin_dir_url(__FILE__) . 'taken-print.js', array(), '1.0.0', true);
+
 	$html = "<div class='vtc-taken-printable'>";
 
 	if ($show_button) {
-		$html .= "<button type='button' class='vtc-taken__print-button' onclick='window.print()'>Printen</button>";
+		$html .= "<button type='button' class='vtc-taken__print-button'>Printen</button>";
 	}
 
 	$html .= "<h2 class='vtc-taken__print-title'>" . esc_html($print_title) . "</h2>";
 	$html .= $content;
 	$html .= "</div>";
-
-	// ?print in the URL: open the print window right away (the old zaaltaken page did the same)
-	if (isset($_GET['print'])) {
-		$html .= "<script>window.addEventListener('load', function () { window.print(); });</script>";
-	}
 
 	return $html;
 }
