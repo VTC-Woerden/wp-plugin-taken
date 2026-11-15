@@ -53,9 +53,26 @@ function vtc_taken_get_teams() {
 	));
 }
 
-// Find a team by its slug (the last part of the URL, for example 'heren-1')
+/*
+ * Find a team by its slug (the URL name, for example 'heren-1'). Returns the team post, or null.
+ * sanitize_title() also turns 'Heren-1' or 'heren 1' into 'heren-1', so old links keep working.
+ * We search by name (not by path), so teams that have a parent team are found as well.
+ */
 function vtc_taken_get_team_by_slug($slug) {
-	return get_page_by_path($slug, OBJECT, 'teams');
+	$slug = sanitize_title($slug);
+
+	if ($slug == '') {
+		return null;
+	}
+
+	$teams = get_posts(array(
+		'post_type' => 'teams',
+		'post_status' => 'publish',
+		'name' => $slug,
+		'numberposts' => 1,
+	));
+
+	return empty($teams) ? null : $teams[0];
 }
 
 /*

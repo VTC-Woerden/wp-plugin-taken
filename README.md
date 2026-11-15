@@ -12,7 +12,8 @@ WordPress plugin voor VTC Woerden om taken van teams te beheren en te tonen: alg
 ## Op de website
 
 - Shortcode `[vtc_taken]`: de taken van een team als tabel, met een printknop.
-  - Op een teampagina: de taken van dat team. Elders: alle teams.
+  - Met `?team=heren-1` in de URL (zoals de teampagina `/teams/?team=heren-1`): de taken van dat team.
+  - Op een pagina van het `teams` post type: de taken van dat team. Elders: alle teams.
   - `team="heren-1"`, `toon_verleden="ja"`, `print="nee"`
   - Het `teams` post type heeft geen editor, zet daarom in de template van een teampagina: `<?php echo do_shortcode('[vtc_taken]'); ?>`
 - Schermen voor in de zaal (zonder thema):

@@ -7,7 +7,8 @@ if (!defined('ABSPATH')) {
 /*
  * Shortcode [vtc_taken]
  *
- * [vtc_taken]                     On a team page: the tasks of that team.
+ * [vtc_taken]                     With ?team=heren-1 in the URL: the tasks of that team.
+ *                                 On a page of the 'teams' post type: the tasks of that team.
  *                                 On any other page: the tasks of all teams.
  * [vtc_taken team="heren-1"]      The tasks of one team, on any page.
  * [vtc_taken toon_verleden="ja"]  Also show tasks from the past.
@@ -31,12 +32,19 @@ function vtc_taken_shortcode($atts = [], $content = null) {
 	$show_past = ($atts['toon_verleden'] == 'ja');
 	$show_print = ($atts['print'] != 'nee');
 
-	// 1. A team was given in the shortcode
-	if ($atts['team'] != '') {
-		$team = vtc_taken_get_team_by_slug($atts['team']);
+	// Which team? First the shortcode itself (team="heren-1"), then ?team=heren-1 in the URL.
+	// The URL is how the team pages of the website work: /teams/?team=heren-1&lokaleteamcode=...
+	$team_slug = $atts['team'];
+	if ($team_slug == '' && isset($_GET['team'])) {
+		$team_slug = sanitize_text_field(wp_unslash($_GET['team']));
+	}
+
+	// 1. A team was given in the shortcode or in the URL
+	if ($team_slug != '') {
+		$team = vtc_taken_get_team_by_slug($team_slug);
 
 		if (!$team) {
-			return '<p>Team niet gevonden: ' . esc_html($atts['team']) . '</p>';
+			return '<p>Team niet gevonden: ' . esc_html($team_slug) . '</p>';
 		}
 
 		return vtc_taken_wrap_printable(
